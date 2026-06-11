@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { parseApiError } from "@/lib/errors";
-import { buildSystemPrompt } from "@/lib/prompts";
+import { SYSTEM_PROMPT } from "@/lib/systemPrompt";
 import { ChatRequest } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -28,9 +28,9 @@ export async function POST(request: Request) {
     }
 
     const stream = await anthropic.messages.stream({
-      model: process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-5-20250929",
+      model: process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-6",
       max_tokens: 4096,
-      system: buildSystemPrompt(),
+      system: SYSTEM_PROMPT,
       messages: body.messages.map((m) => ({
         role: m.role,
         content: m.content,
