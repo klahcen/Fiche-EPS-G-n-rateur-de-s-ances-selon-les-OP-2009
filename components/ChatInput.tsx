@@ -7,9 +7,10 @@ interface ChatInputProps {
   onChange: (value: string) => void;
   onSubmit: () => void;
   disabled?: boolean;
+  dark?: boolean;
 }
 
-export default function ChatInput({ value, onChange, onSubmit, disabled }: ChatInputProps) {
+export default function ChatInput({ value, onChange, onSubmit, disabled, dark }: ChatInputProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -26,7 +27,11 @@ export default function ChatInput({ value, onChange, onSubmit, disabled }: ChatI
   };
 
   return (
-    <div className="border-t border-gray-200 bg-white px-4 py-4">
+    <div
+      className={`px-4 py-4 ${
+        dark ? "border-t border-white/[0.06] bg-white/[0.02]" : "border-t border-gray-200 bg-white"
+      }`}
+    >
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -42,12 +47,16 @@ export default function ChatInput({ value, onChange, onSubmit, disabled }: ChatI
           placeholder="Décrivez la situation d'apprentissage souhaitée..."
           rows={1}
           disabled={disabled}
-          className="flex-1 resize-none rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent disabled:opacity-50 max-h-[120px]"
+          className={`flex-1 resize-none rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 max-h-[120px] ${
+            dark
+              ? "bg-white/[0.05] border border-white/[0.1] text-white placeholder:text-white/30"
+              : "border border-gray-300 focus:ring-blue-600 focus:border-transparent"
+          }`}
         />
         <button
           type="submit"
           disabled={!value.trim() || disabled}
-          className="flex-shrink-0 w-10 h-10 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white rounded-xl flex items-center justify-center transition-colors"
+          className="flex-shrink-0 w-10 h-10 bg-blue-600 hover:bg-blue-500 disabled:bg-white/10 disabled:text-white/30 text-white rounded-xl flex items-center justify-center transition-colors"
         >
           {disabled ? (
             <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
