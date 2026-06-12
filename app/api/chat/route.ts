@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     }
 
     const stream = await anthropic.messages.stream({
-      model: process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-6",
+      model: process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: body.messages.map((m) => ({

@@ -18,7 +18,7 @@ Chatbot pédagogique pour enseignants d'**Éducation Physique et Sportive (EPS)*
 | Framework | Next.js 14 (App Router) |
 | Langage | TypeScript |
 | Styles | Tailwind CSS + `@tailwindcss/typography` |
-| IA | Anthropic API — `claude-sonnet-4-6` |
+| IA | Anthropic API — `claude-haiku-4-5-20251001` |
 | Markdown | `react-markdown` + `remark-gfm` |
 | Streaming | SSE via `ReadableStream` |
 
@@ -50,7 +50,7 @@ Créez un fichier `.env` ou `.env.local` à la racine :
 
 ```env
 ANTHROPIC_API_KEY=votre_clé_api
-ANTHROPIC_MODEL=claude-sonnet-4-6
+ANTHROPIC_MODEL=claude-haiku-4-5-20251001
 ```
 
 > Ne commitez jamais vos clés API. Le fichier `.env` est ignoré par git.

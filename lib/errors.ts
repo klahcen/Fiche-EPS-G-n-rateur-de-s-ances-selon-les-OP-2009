@@ -1,6 +1,6 @@
 export function parseApiError(raw: string): string {
   if (raw.includes("not_found_error") || /^model:/.test(raw.trim())) {
-    return "Modèle IA introuvable ou obsolète. Mettez à jour `ANTHROPIC_MODEL` dans `.env` (ex. `claude-sonnet-4-5-20250929`).";
+    return "Modèle IA introuvable ou obsolète. Mettez à jour `ANTHROPIC_MODEL` dans `.env` (ex. `claude-haiku-4-5-20251001`).";
   }
 
   if (raw.includes("credit balance is too low")) {
