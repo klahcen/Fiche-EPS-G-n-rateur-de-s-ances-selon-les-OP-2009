@@ -1,5 +1,6 @@
 "use client";
 
+import { ChatAttachment } from "@/lib/types";
 import { AsteriskIcon, getGreeting } from "./AsteriskIcon";
 import InputCard from "./InputCard";
 import { chatTheme } from "./theme";
@@ -28,6 +29,11 @@ interface WelcomeViewProps {
   setInput: (v: string) => void;
   onSend: (text?: string) => void;
   isLoading: boolean;
+  attachments?: ChatAttachment[];
+  onAddFiles?: (files: FileList) => void;
+  onRemoveAttachment?: (id: string) => void;
+  attachError?: string | null;
+  isExtracting?: boolean;
 }
 
 export default function WelcomeView({
@@ -35,6 +41,11 @@ export default function WelcomeView({
   setInput,
   onSend,
   isLoading,
+  attachments,
+  onAddFiles,
+  onRemoveAttachment,
+  attachError,
+  isExtracting,
 }: WelcomeViewProps) {
   const greeting = getGreeting();
 
@@ -78,7 +89,17 @@ export default function WelcomeView({
           minHeight={52}
           maxHeight={200}
           showExtras
+          attachments={attachments}
+          onAddFiles={onAddFiles}
+          onRemoveAttachment={onRemoveAttachment}
+          isExtracting={isExtracting}
         />
+        {isExtracting && (
+          <p className="text-white/40 text-xs mt-2 text-center">Extraction du fichier...</p>
+        )}
+        {attachError && (
+          <p className="text-red-400 text-xs mt-2 text-center">{attachError}</p>
+        )}
       </div>
 
       <div className="relative flex flex-wrap gap-2 justify-center w-full max-w-[680px]">

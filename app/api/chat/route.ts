@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { buildAnthropicMessages } from "@/lib/buildApiContent";
 import { parseApiError } from "@/lib/errors";
 import { SYSTEM_PROMPT } from "@/lib/systemPrompt";
 import { ChatRequest } from "@/lib/types";
@@ -27,14 +28,13 @@ export async function POST(request: Request) {
       );
     }
 
+    const anthropicMessages = buildAnthropicMessages(body.messages);
+
     const stream = await anthropic.messages.stream({
       model: process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001",
       max_tokens: 4096,
       system: SYSTEM_PROMPT,
-      messages: body.messages.map((m) => ({
-        role: m.role,
-        content: m.content,
-      })),
+      messages: anthropicMessages,
     });
 
     const encoder = new TextEncoder();

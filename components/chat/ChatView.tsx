@@ -16,6 +16,11 @@ interface ChatViewProps {
   showTyping: boolean;
   onCopy: (content: string) => void;
   onRegenerate: (index: number) => void;
+  attachments?: ChatMessageType["attachments"];
+  onAddFiles?: (files: FileList) => void;
+  onRemoveAttachment?: (id: string) => void;
+  attachError?: string | null;
+  isExtracting?: boolean;
 }
 
 export default function ChatView({
@@ -27,6 +32,11 @@ export default function ChatView({
   showTyping,
   onCopy,
   onRegenerate,
+  attachments,
+  onAddFiles,
+  onRemoveAttachment,
+  attachError,
+  isExtracting,
 }: ChatViewProps) {
   const messagesRef = useRef<HTMLDivElement>(null);
   const lastMessage = messages[messages.length - 1];
@@ -90,7 +100,17 @@ export default function ChatView({
             onSend={onSend}
             disabled={isLoading}
             placeholder="Continuez la conversation..."
+            attachments={attachments}
+            onAddFiles={onAddFiles}
+            onRemoveAttachment={onRemoveAttachment}
+            isExtracting={isExtracting}
           />
+          {isExtracting && (
+            <p className="text-white/40 text-xs mt-1 text-center">Extraction du fichier...</p>
+          )}
+          {attachError && (
+            <p className="text-red-400 text-xs mt-1 text-center">{attachError}</p>
+          )}
           <p
             style={{
               textAlign: "center",

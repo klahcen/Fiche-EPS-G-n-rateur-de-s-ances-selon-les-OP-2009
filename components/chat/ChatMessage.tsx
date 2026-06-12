@@ -6,6 +6,8 @@ import { ChatMessage as ChatMessageType } from "@/lib/types";
 import { AsteriskIcon } from "./AsteriskIcon";
 import { chatTheme } from "./theme";
 import { markdownComponents } from "./markdownComponents";
+import ImageAttachment from "./ImageAttachment";
+import { attachmentDataUrl, isDocumentAttachment, isImageAttachment } from "@/lib/attachments";
 
 interface ChatMessageProps {
   message: ChatMessageType;
@@ -55,6 +57,9 @@ export default function ChatMessage({
   onRegenerate,
 }: ChatMessageProps) {
   if (message.role === "user") {
+    const images = message.attachments?.filter(isImageAttachment) ?? [];
+    const files = message.attachments?.filter(isDocumentAttachment) ?? [];
+
     return (
       <div
         style={{
@@ -62,23 +67,66 @@ export default function ChatMessage({
           borderBottom: `1px solid ${chatTheme.border}`,
         }}
       >
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <div
-            style={{
-              background: chatTheme.cardBg,
-              border: `1px solid ${chatTheme.cardBorder}`,
-              borderRadius: "18px",
-              borderBottomRightRadius: "4px",
-              padding: "10px 16px",
-              maxWidth: "75%",
-              fontSize: "15px",
-              lineHeight: 1.55,
-              color: "rgba(255,255,255,0.9)",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {message.content}
-          </div>
+        <div
+          className="flex flex-col items-end gap-2"
+          style={{ maxWidth: "85%", marginLeft: "auto" }}
+        >
+          {images.length > 0 && (
+            <div className="flex flex-col gap-2 items-end w-full">
+              {images.map((att) =>
+                att.data ? (
+                  <ImageAttachment
+                    key={att.id}
+                    src={attachmentDataUrl(att)}
+                    alt={att.name}
+                    variant="message"
+                  />
+                ) : null
+              )}
+            </div>
+          )}
+
+          {files.length > 0 && (
+            <div className="flex flex-wrap gap-2 justify-end">
+              {files.map((att) => (
+                <div
+                  key={att.id}
+                  className="flex items-center gap-2 text-xs text-white/60"
+                  style={{
+                    background: chatTheme.cardBg,
+                    border: `1px solid ${chatTheme.cardBorder}`,
+                    borderRadius: "8px",
+                    padding: "6px 10px",
+                    maxWidth: "220px",
+                  }}
+                  title={att.extractedText?.slice(0, 200)}
+                >
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-blue-400 flex-shrink-0">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  <span className="truncate">{att.name}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {message.content ? (
+            <div
+              style={{
+                background: chatTheme.cardBg,
+                border: `1px solid ${chatTheme.cardBorder}`,
+                borderRadius: "18px",
+                borderBottomRightRadius: "4px",
+                padding: "10px 16px",
+                fontSize: "15px",
+                lineHeight: 1.55,
+                color: "rgba(255,255,255,0.9)",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              {message.content}
+            </div>
+          ) : null}
         </div>
       </div>
     );

@@ -1,6 +1,9 @@
 "use client";
 
+import { ChatAttachment } from "@/lib/types";
 import { chatTheme } from "./theme";
+import AttachMenu from "./AttachMenu";
+import AttachmentPreview from "./AttachmentPreview";
 
 interface InputCardProps {
   value: string;
@@ -12,6 +15,10 @@ interface InputCardProps {
   minHeight?: number;
   maxHeight?: number;
   showExtras?: boolean;
+  attachments?: ChatAttachment[];
+  onAddFiles?: (files: FileList) => void;
+  onRemoveAttachment?: (id: string) => void;
+  isExtracting?: boolean;
 }
 
 function isTouchDevice() {
@@ -29,8 +36,13 @@ export default function InputCard({
   minHeight = 24,
   maxHeight = 120,
   showExtras = false,
+  attachments = [],
+  onAddFiles,
+  onRemoveAttachment,
+  isExtracting,
 }: InputCardProps) {
-  const canSend = value.trim().length > 0 && !disabled;
+  const canSend =
+    (value.trim().length > 0 || attachments.length > 0) && !disabled && !isExtracting;
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);
@@ -57,6 +69,10 @@ export default function InputCard({
         gap: showExtras ? "12px" : "10px",
       }}
     >
+      {attachments.length > 0 && onRemoveAttachment && (
+        <AttachmentPreview attachments={attachments} onRemove={onRemoveAttachment} />
+      )}
+
       <textarea
         value={value}
         onChange={handleInput}
@@ -89,28 +105,16 @@ export default function InputCard({
           justifyContent: "space-between",
         }}
       >
-        {showExtras ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <button
-              type="button"
-              style={{
-                background: "transparent",
-                border: `1px solid ${chatTheme.borderStrong}`,
-                borderRadius: "8px",
-                padding: "5px 10px",
-                color: "rgba(255,255,255,0.4)",
-                fontSize: "13px",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-              }}
-            >
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-              <span>Ajouter</span>
-            </button>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          {onAddFiles && (
+            <AttachMenu
+              onFilesSelected={onAddFiles}
+              disabled={disabled || isExtracting}
+              compact={!showExtras}
+            />
+          )}
+
+          {showExtras && (
             <div
               style={{
                 background: "rgba(59, 130, 246, 0.1)",
@@ -128,25 +132,8 @@ export default function InputCard({
               <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
               <span style={{ color: chatTheme.accentLight, fontSize: "11px" }}>Rapide</span>
             </div>
-          </div>
-        ) : (
-          <button
-            type="button"
-            style={{
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              color: "rgba(255,255,255,0.3)",
-              display: "flex",
-              padding: "2px",
-            }}
-            aria-label="Ajouter"
-          >
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-          </button>
-        )}
+          )}
+        </div>
 
         <button
           type="button"
