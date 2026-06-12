@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -35,14 +36,14 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 group">
+        <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
             <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
           <span className="font-semibold text-white text-sm tracking-tight">EPS OP2009</span>
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
@@ -55,13 +56,12 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-          <button
-            type="button"
-            onClick={() => scrollTo("#chat")}
+          <Link
+            href="/chat"
             className="text-sm bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl font-medium transition-all"
           >
             Ouvrir le chat →
-          </button>
+          </Link>
         </div>
 
         <button
@@ -92,13 +92,13 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-          <button
-            type="button"
-            onClick={() => scrollTo("#chat")}
-            className="w-full text-sm bg-blue-600 text-white px-4 py-2.5 rounded-xl font-medium"
+          <Link
+            href="/chat"
+            onClick={() => setMenuOpen(false)}
+            className="block w-full text-center text-sm bg-blue-600 text-white px-4 py-2.5 rounded-xl font-medium"
           >
             Ouvrir le chat →
-          </button>
+          </Link>
         </div>
       )}
     </nav>

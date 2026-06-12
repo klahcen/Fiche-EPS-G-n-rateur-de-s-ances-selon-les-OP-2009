@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import FadeIn from "./FadeIn";
 
 interface HeroProps {
-  onStartChat: () => void;
-  onSeeExample: () => void;
+  chatHref: string;
+  exampleHref: string;
 }
 
-export default function Hero({ onStartChat, onSeeExample }: HeroProps) {
+export default function Hero({ chatHref, exampleHref }: HeroProps) {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
       <div
@@ -48,20 +49,18 @@ export default function Hero({ onStartChat, onSeeExample }: HeroProps) {
 
         <FadeIn delay={300}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <button
-              type="button"
-              onClick={onStartChat}
-              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-all w-full sm:w-auto"
+            <Link
+              href={chatHref}
+              className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-medium transition-all w-full sm:w-auto text-center"
             >
               Démarrer le chat →
-            </button>
-            <button
-              type="button"
-              onClick={onSeeExample}
-              className="border border-white/20 text-white/70 hover:border-white/40 hover:text-white px-6 py-3 rounded-xl font-medium transition-all w-full sm:w-auto"
+            </Link>
+            <Link
+              href={exampleHref}
+              className="border border-white/20 text-white/70 hover:border-white/40 hover:text-white px-6 py-3 rounded-xl font-medium transition-all w-full sm:w-auto text-center"
             >
               Voir un exemple
-            </button>
+            </Link>
           </div>
         </FadeIn>
 
