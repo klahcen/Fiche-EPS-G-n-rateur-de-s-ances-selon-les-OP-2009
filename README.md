@@ -2,6 +2,11 @@
 
 Chatbot pédagogique pour enseignants d'**Éducation Physique et Sportive (EPS)** au cycle collégial marocain. Il génère des **situations d'apprentissage** structurées pour les **sports collectifs**, conformes aux **Orientations Pédagogiques 2009 (OP 2009)**.
 
+## Démo en ligne
+
+- **Accueil :** [https://eps2009.up.railway.app/](https://eps2009.up.railway.app/)
+- **Chat :** [https://eps2009.up.railway.app/chat](https://eps2009.up.railway.app/chat)
+
 ## Fonctionnalités
 
 - Interface de chat simple (messages + saisie en bas)

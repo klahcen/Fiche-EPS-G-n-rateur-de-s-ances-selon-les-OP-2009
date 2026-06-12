@@ -24,21 +24,21 @@ export default function Home() {
       <Features />
       <HowItWorks />
 
-      <section className="py-32 px-6 border-t border-white/[0.04]">
+      <section className="py-20 md:py-32 px-4 sm:px-6 border-t border-white/[0.04]">
         <div className="max-w-2xl mx-auto text-center">
           <FadeIn>
             <span className="inline-block text-xs px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-4">
               Prêt à commencer
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4 px-2">
               Ouvrez le chat et générez.
             </h2>
-            <p className="text-white/50 text-sm mb-8 leading-relaxed">
+            <p className="text-white/50 text-sm mb-8 leading-relaxed px-2">
               Une page dédiée pour vos conversations — comme un assistant personnel EPS.
             </p>
             <Link
               href="/chat"
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-xl font-medium transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 active:scale-[0.98] text-white px-8 py-3.5 rounded-xl font-medium transition-all w-full sm:w-auto"
             >
               Ouvrir le chat
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

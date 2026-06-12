@@ -1,0 +1,15 @@
+export const chatTheme = {
+  bg: "#090909",
+  accent: "#2563eb",
+  accentHover: "#3b82f6",
+  accentLight: "#60a5fa",
+  accentGlow: "rgba(59, 130, 246, 0.15)",
+  accentBorder: "rgba(59, 130, 246, 0.3)",
+  accentBg: "rgba(37, 99, 235, 0.2)",
+  border: "rgba(255, 255, 255, 0.06)",
+  borderStrong: "rgba(255, 255, 255, 0.1)",
+  cardBg: "rgba(255, 255, 255, 0.04)",
+  cardBorder: "rgba(255, 255, 255, 0.06)",
+  textMuted: "rgba(255, 255, 255, 0.5)",
+  textSubtle: "rgba(255, 255, 255, 0.3)",
+} as const;

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:clean": "rm -rf .next && next dev",
+    "dev:reset": "fuser -k 3000/tcp 2>/dev/null; rm -rf .next && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
