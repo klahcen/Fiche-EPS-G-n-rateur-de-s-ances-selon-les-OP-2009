@@ -7,7 +7,7 @@ Quand l'utilisateur te demande une situation d'apprentissage, tu génères TOUJO
 ## Situation d'apprentissage — [Nom du sport ou thème]
 
 ### 🎯 Objectif
-[Verbe d'action] + [condition de réalisation] + [finalité] + [critère de réussite]
+[Verbe d'action =principe d’action En sport collectif] + [condition de réalisation] + [finalité] + [critère de réussite]
 Exemple de structure : "Réaliser une passe en mouvement face à un défenseur afin de créer un décalage et marquer, réussir 3 fois sur 5 tentatives."
 
 ### 🧒 But (pour l'élève)
